@@ -1,46 +1,54 @@
-# crowdfunding_back_end
-## Second Leash
-1. Two types of users
-2. Normal user - a user that can swipe / donate money
-3. Admin user - user who can put up puppy for adoption / start + stop fundraiser 
-
-## What users can do
-
-Normal User: 
-1. Can swipe left or right on puppies they are interested in adopting
-2. Swiping right on a puupy adds them to a favourites list within the users profile
-3. Once favourited, the user will be able to go into a favourites page and click on the ones they want to enquire about (this will be a puppy landing page). This page will have all the enquiry details such as phone number etc... This will also have a fund puppy CTA (call to action like a button or something) in which if the user choses not to proceed but help with funds they can donate. 
-
-Admin user: 
-1. Can upload puppy info
-2. Can set up puppy fundraiser / delete fundraiser 
-3. Can reply to enquiries 
-
 # Crowdfunding Back End
-{{ your name here }}
+Second Leash
 
 ## Planning:
 ### Concept/Name
-{{ Include a short description of your website concept here. }}
+Second Leash is a crowdfunding-backed puppy adoption platform that helps connect potential adopters with puppies in need while offering an alternative way to support them financially. 
+
+Users can swipe through available puppies, save favourites, make adoption enquiries, or contribute to individual puppy fundraisers—giving every puppy a second chance, even when adoption isn’t immediately possible.
 
 ### Intended Audience/User Stories
-{{ Who are your intended audience? How will they use the website? }}
+Two types of users
+1. Normal user - a user that can swipe / donate money
+   1. Can swipe left or right on puppies they are interested in adopting
+   2. Swiping right on a puupy adds them to a favourites list within the users profile
+   3. Once favourited, the user will be able to go into a favourites page and click on the ones they want to enquire about (this will be a puppy landing page). This page will have all the enquiry details such as phone number etc... This will also have a fund puppy CTA (call to action like a button or something) in which if the user choses not to proceed but can help with funds they donate. 
+
+2. Admin user - user who can put up puppy for adoption / start + stop fundraiser
+   1. Can upload puppy info
+   2. Can set up puppy fundraiser / delete fundraiser 
+   3. Can reply to enquiries
 
 ### Front End Pages/Functionality
-- {{ A page on the front end }}
-    - {{ A list of dot-points showing functionality is available on this page }}
-    - {{ etc }}
-    - {{ etc }}
-- {{ A second page available on the front end }}
-    - {{ Another list of dot-points showing functionality }}
-    - {{ etc }}
+- Puppy Discovery (Swipe) Page
+    - Displays a list of puppies available for adoption in a swipe-style interface
+    - Swipe right to add a puppy to the user’s favourites list
+    - Swipe left to skip a puppy
+    - View basic puppy details such as name, age, breed, and photo
+    - Prompt users to sign in or create an account to save favourites
+- Favourites Page
+    - Displays all puppies the user has favourited
+    - Allows users to select a puppy from their favourites to view more details
+    - Provides clear navigation to each puppy’s detailed profile page
+- Puppy Details Page
+    - Displays full information about the selected puppy
+    - Shows adoption enquiry details (e.g. contact phone number and email)
+    - Includes a “Fund This Puppy” call-to-action for users who prefer to donate instead of adopt
+    - Confirms successful donation or enquiry submissions with clear user feedback
+- Login Page
+  - Requires email and password
+- Signup Page
+  - Fullname
+  - Email 
+  - Password
+  - Confirm password
 
 ### API Spec
-{{ Fill out the table below to define your endpoints. An example of what this might look like is shown at the bottom of the page. 
+ Fill out the table below to define your endpoints. An example of what this might look like is shown at the bottom of the page. 
 
 It might look messy here in the PDF, but once it's rendered it looks very neat! 
 
-It can be helpful to keep the markdown preview open in VS Code so that you can see what you're typing more easily. }}
+It can be helpful to keep the markdown preview open in VS Code so that you can see what you're typing more easily. 
 
 | URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/Authorisation |
 | --- | ----------- | ------- | ------------ | --------------------- | ---------------------------- |
