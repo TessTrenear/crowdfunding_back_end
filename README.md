@@ -20,6 +20,10 @@ Two types of users
    3. Can reply to enquiries
 
 ### Front End Pages/Functionality
+- Home
+  - Landing page
+  - Purpose of fundraiser
+  - Links to Puppy Discovery Page
 - Puppy Discovery (Swipe) Page
     - Displays a list of puppies available for adoption in a swipe-style interface
     - Swipe right to add a puppy to the user’s favourites list
@@ -30,7 +34,7 @@ Two types of users
     - Displays all puppies the user has favourited
     - Allows users to select a puppy from their favourites to view more details
     - Provides clear navigation to each puppy’s detailed profile page
-- Puppy Details Page
+- Puppy Details Page (Fundraiser)
     - Displays full information about the selected puppy
     - Shows adoption enquiry details (e.g. contact phone number and email)
     - Includes a “Fund This Puppy” call-to-action for users who prefer to donate instead of adopt
@@ -43,16 +47,10 @@ Two types of users
   - Password
   - Confirm password
 
-### API Spec
- Fill out the table below to define your endpoints. An example of what this might look like is shown at the bottom of the page. 
-
-It might look messy here in the PDF, but once it's rendered it looks very neat! 
-
-It can be helpful to keep the markdown preview open in VS Code so that you can see what you're typing more easily. 
-
-| URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/Authorisation |
-| --- | ----------- | ------- | ------------ | --------------------- | ---------------------------- |
-|     |             |         |              |                       |                              |
+### API Spec 
+| URL                        | HTTP Method | Purpose       | Request Body | Success Response Code | Authent/Author |
+| fundraisers/home/          | GET         | Get home page | N/A          | 200                   | None           |
+| fundraisers/discovery/     | GET         | Get puppy discovery page | N/A          | 200                   | None                         |
 
 ### DB Schema
 ![]( {{ ./relative/path/to/your/schema/image.png }} )
