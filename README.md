@@ -41,13 +41,22 @@ Two types of users
     - Confirms successful donation or enquiry submissions with clear user feedback
 - Login Page
   - Requires email and password
+  - Password reset
 - Signup Page
   - Fullname
   - Email 
   - Password
   - Confirm password
+- Password Recovery Page
+  - Enter new password
+  - Reconfirm password and commit
 
 ### API Spec 
+| URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/Authorisation |
+| --- | ----------- | ------- | ------------ | --------------------- | ---------------------------- |
+| fundraisers/home/ | GET | Get home page | N          | 200                   | None           |
+
+
 | URL                        | HTTP Method | Purpose       | Request Body | Success Response Code | Authent/Author |
 | fundraisers/home/          | GET         | Get home page | N/A          | 200                   | None           |
 | fundraisers/discovery/     | GET         | Get puppy discovery page | N/A          | 200                   | None                         |

@@ -16,5 +16,5 @@ class Pledge(models.Model):
     fundraiser = models.ForeignKey(
         'Fundraiser', #send name of Class Foreign key is on. Auto user primary key for Fundraiser class.
         on_delete=models.CASCADE, #what to do DELETE > on delete of a FUNDRAISER cascade > finds all pledges to all that fundraiser and delete the pledges. Stops bad data.
-        related_name='pledges' #special property allow you to access all pledges for that fundraiser > by using a special property. Don't need to query the pledges table, DJANGO will do it on our behalf
+        related_name='pledges' #special property allow you to access all pledges for that fundraiser > by using a special property. Don't need to query the pledges table, DJANGO will do it on our
     )   
