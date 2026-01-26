@@ -23,13 +23,27 @@ Two types of users
 - Home
   - Landing page
   - Purpose of fundraiser
-  - Links to Puppy Discovery Page
+  - Link to login page/register
+- Login Page
+  - Requires email and password
+  - Password reset button
+- Register Page
+  - Fullname
+  - Password
+  - Confirm password
+- Password Reset Page
+  - Enter new password
+  - Reconfirm password and commit
+- Admin User
+  - Add puppy
+  - Delete puppy
 - Puppy Discovery (Swipe) Page
     - Displays a list of puppies available for adoption in a swipe-style interface
     - Swipe right to add a puppy to the user’s favourites list
     - Swipe left to skip a puppy
     - View basic puppy details such as name, age, breed, and photo
-    - Prompt users to sign in or create an account to save favourites
+- Pledges
+  - Show list of all puppies the user has made pledges to
 - Favourites Page
     - Displays all puppies the user has favourited
     - Allows users to select a puppy from their favourites to view more details
@@ -39,27 +53,25 @@ Two types of users
     - Shows adoption enquiry details (e.g. contact phone number and email)
     - Includes a “Fund This Puppy” call-to-action for users who prefer to donate instead of adopt
     - Confirms successful donation or enquiry submissions with clear user feedback
-- Login Page
-  - Requires email and password
-  - Password reset
-- Signup Page
-  - Fullname
-  - Email 
-  - Password
-  - Confirm password
-- Password Recovery Page
-  - Enter new password
-  - Reconfirm password and commit
+
 
 ### API Spec 
 | URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/Authorisation |
 | --- | ----------- | ------- | ------------ | --------------------- | ---------------------------- |
-| fundraisers/home/ | GET | Get home page | N          | 200                   | None           |
-
-
-| URL                        | HTTP Method | Purpose       | Request Body | Success Response Code | Authent/Author |
-| fundraisers/home/          | GET         | Get home page | N/A          | 200                   | None           |
-| fundraisers/discovery/     | GET         | Get puppy discovery page | N/A          | 200                   | None                         |
+| user/login/ | POST | Validation/authentication of user | email and password | 200 | None |
+| user/register | POST | Validation/authentication of user | email, password and fullname | 200 | None |
+| user/password-reset | POST | Email | None | 200 | None |
+| discovery| GET | Get list of available puppies | None | 200 | Logged in |
+| discovery/favourite/{puppy_id} | POST | Favourite puppy ID against user ID | puppy_id | 200 | Logged |
+| discovery/favourites/| GET | Get the list of all the favourited puppies of the logged in user| none | 200 | Logged in |
+| detail/{puppy_id} | GET | Get puppy details | puppy_id | 200 | Logged in |
+| detail/enquire/{puppy_id} | POST | User can enquire about puppy | puppy_id, fullname, email and enquiry | 200 | Logged in |
+| detail/pledge/{puppy_id} | POST | Donate to puppy pledge | puppy_id, pledge_amount and user_id | 200 | Logged in |
+| detail/pledges/{puppy_id} | GET | Get list of all pledges made to this puppy | puppy_id | 200 | Logged in |
+| pledges | GET | Get list of all pledges the user has made | None | 200 | Logged in
+| create | POST | Create a puppy item in the DB | name, description, and image | 201 | Logged in as admin |
+| delete | POST | Delete a puppy item in the DB | puppy_id | 200 | Logged in as admin |
+| update | POST | Update a puppy item in the DB | puppy_id | 200 | Logged in as admin |
 
 ### DB Schema
 ![]( {{ ./relative/path/to/your/schema/image.png }} )
