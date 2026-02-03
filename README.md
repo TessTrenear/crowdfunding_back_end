@@ -73,5 +73,8 @@ Two types of users
 | delete | POST | Delete a puppy item in the DB | puppy_id | 200 | Logged in as admin |
 | update | POST | Update a puppy item in the DB | puppy_id | 200 | Logged in as admin |
 
+### Permissions Structure
+
+
 ### DB Schema
 ![]( {{ ./relative/path/to/your/schema/image.png }} )
