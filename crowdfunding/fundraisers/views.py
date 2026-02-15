@@ -5,9 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.generics import get_object_or_404
-from .models import Fundraiser, Pledge
-from .permissions import IsOwnerOrReadOnly 
-from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetailSerializer
+from .models import Fundraiser, Pledge, Favourite
+from .permissions import IsOwnerOrReadOnly
+from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetailSerializer, FavouriteSerializer
 
 class FundraiserList(APIView):
     permission_classes = [
@@ -81,6 +81,21 @@ class PledgeList(APIView):
                 status=status.HTTP_201_CREATED
             )
         return Response(
-            status.errors,
+            serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
+
+class FavouriteCreate(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        fundraiser = get_object_or_404(Fundraiser, pk=pk)
+        # Check if already favourited
+        if Favourite.objects.filter(user=request.user, fundraiser=fundraiser).exists():
+            return Response(
+                {"detail": "You have already favourited this puppy."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        favourite = Favourite.objects.create(user=request.user, fundraiser=fundraiser)
+        serializer = FavouriteSerializer(favourite)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -15,6 +15,25 @@ class Fundraiser(models.Model):
         related_name='owned_fundraisers' #django user models special > django relies on user models to do a range of things. User Model is only one configurable in crowdfunding>settings
     )
 
+class Favourite(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='favourites'
+    )
+    fundraiser = models.ForeignKey(
+        'Fundraiser',
+        on_delete=models.CASCADE,
+        related_name='favourited_by'
+    )
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'fundraiser')
+
+    def __str__(self):
+        return f"{self.user} favourited {self.fundraiser}"
+
 class Pledge(models.Model):
     amount = models.IntegerField()
     comment = models.CharField(max_length=200)
