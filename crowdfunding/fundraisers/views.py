@@ -46,7 +46,11 @@ class FundraiserDetail(APIView):
     
     def put(self, request, pk) :
         fundraiser = get_object_or_404(Fundraiser, pk=pk)
-        self.check_object_permissions(request, fundraiser)
+        if not request.user.is_staff:
+            return Response(
+                {"detail": "Only admin users can update fundraisers."},
+                status=status.HTTP_403_FORBIDDEN
+            )
         serializer = FundraiserDetailSerializer(
             instance=fundraiser,
             data=request.data,
