@@ -45,21 +45,31 @@ class FundraiserDetail(APIView):
         return Response(serializer.data)
     
     def put(self, request, pk) :
-        fundraiser = get_object_or_404(Fundraiser, pk=pk) #update Fundraiser, we do care about the pk (PUT).
+        fundraiser = get_object_or_404(Fundraiser, pk=pk)
         self.check_object_permissions(request, fundraiser)
-        serializer = FundraiserDetailSerializer( #Business rule > only owner of fundraiser can update
-            instance=fundraiser, 
+        serializer = FundraiserDetailSerializer(
+            instance=fundraiser,
             data=request.data,
-            partial=True #special option in Django. PUT(update something > all fields), PATCH (some fields updated). 
-        ) #HTTP spec - not all frameworks will follow HTTP methods > HTTP methods were added in later. Some firewalls don't allow PATCH requests.
-        if serializer.is_valid(): #telling serializer > JSON data come in > is it valid or not > required fields come from DB table
+            partial=True
+        )
+        if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data) #return JSON object of what we saved 
-        
+            return Response(serializer.data)
+
         return Response(
-            serializer.error_messages,
+            serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
-        ) #added in functionality to update a Fundraiser
+        )
+
+    def delete(self, request, pk):
+        fundraiser = get_object_or_404(Fundraiser, pk=pk)
+        if not request.user.is_staff:
+            return Response(
+                {"detail": "Only admin users can delete fundraisers."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        fundraiser.delete()
+        return Response(status=status.HTTP_200_OK)
                 
 class PledgeList(APIView):
     permission_classes = [
@@ -68,7 +78,7 @@ class PledgeList(APIView):
     ]
     
     def get(self, request):
-        pledges = Pledge.objects.all()
+        pledges = Pledge.objects.filter(supporter=request.user)
         serializer = PledgeSerializer(pledges, many=True)
         return Response(serializer.data)
     
@@ -118,3 +128,12 @@ class EnquiryCreate(APIView):
             serializer.save(user=request.user, fundraiser=fundraiser)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class FundraiserPledgeList(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk):
+        fundraiser = get_object_or_404(Fundraiser, pk=pk)
+        pledges = Pledge.objects.filter(fundraiser=fundraiser)
+        serializer = PledgeSerializer(pledges, many=True)
+        return Response(serializer.data)

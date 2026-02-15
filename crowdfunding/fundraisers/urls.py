@@ -8,4 +8,5 @@ urlpatterns = [
     path('discovery/favourite/<int:pk>/', views.FavouriteCreate.as_view()),
     path('discovery/favourites/', views.FavouriteList.as_view()),
     path('detail/enquire/<int:pk>/', views.EnquiryCreate.as_view()),
+    path('detail/pledges/<int:pk>/', views.FundraiserPledgeList.as_view()),
 ]
