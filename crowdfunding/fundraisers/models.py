@@ -34,6 +34,25 @@ class Favourite(models.Model):
     def __str__(self):
         return f"{self.user} favourited {self.fundraiser}"
 
+class Enquiry(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='enquiries'
+    )
+    fundraiser = models.ForeignKey(
+        'Fundraiser',
+        on_delete=models.CASCADE,
+        related_name='enquiries'
+    )
+    fullname = models.CharField(max_length=200)
+    email = models.EmailField()
+    message = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Enquiry by {self.fullname} for {self.fundraiser}"
+
 class Pledge(models.Model):
     amount = models.IntegerField()
     comment = models.CharField(max_length=200)

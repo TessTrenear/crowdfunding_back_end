@@ -19,6 +19,12 @@ class FavouriteSerializer(serializers.ModelSerializer):
         model = apps.get_model('fundraisers.Favourite')
         fields = '__all__'
 
+class EnquirySerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.id')
+    class Meta:
+        model = apps.get_model('fundraisers.Enquiry')
+        fields = '__all__'
+
 class FundraiserDetailSerializer(FundraiserSerializer) : #Inherit FundraiserSerializer, do not need to repeat code. Only add the difference.
     pledges = PledgeSerializer(many=True, read_only=True)
 

@@ -5,9 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.generics import get_object_or_404
-from .models import Fundraiser, Pledge, Favourite
+from .models import Fundraiser, Pledge, Favourite, Enquiry
 from .permissions import IsOwnerOrReadOnly
-from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetailSerializer, FavouriteSerializer
+from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetailSerializer, FavouriteSerializer, EnquirySerializer
 
 class FundraiserList(APIView):
     permission_classes = [
@@ -107,3 +107,14 @@ class FavouriteList(APIView):
         favourites = Favourite.objects.filter(user=request.user)
         serializer = FavouriteSerializer(favourites, many=True)
         return Response(serializer.data)
+
+class EnquiryCreate(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        fundraiser = get_object_or_404(Fundraiser, pk=pk)
+        serializer = EnquirySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, fundraiser=fundraiser)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
