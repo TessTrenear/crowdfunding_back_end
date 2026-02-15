@@ -99,3 +99,11 @@ class FavouriteCreate(APIView):
         favourite = Favourite.objects.create(user=request.user, fundraiser=fundraiser)
         serializer = FavouriteSerializer(favourite)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class FavouriteList(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        favourites = Favourite.objects.filter(user=request.user)
+        serializer = FavouriteSerializer(favourites, many=True)
+        return Response(serializer.data)
