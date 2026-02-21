@@ -24,6 +24,13 @@ Starting development server at http://127.0.0.1:8000/
 
 Leave this terminal running. This is your server — if you close it, none of the requests will work.
 
+**Troubleshooting:**
+- If you get `ModuleNotFoundError: No module named 'django'`, you forgot to activate the virtual environment. Make sure you run `source venv/bin/activate` from the `crowdfunding_back_end/` directory before starting the server.
+- If you get `Error: That port is already in use`, the server is already running (or a previous session didn't close properly). Either use the existing server, or kill the process and restart:
+  ```bash
+  lsof -ti:8000 | xargs kill
+  ```
+
 ### 2. Set Up Insomnia
 
 - Open Insomnia and create a new **Request Collection** (e.g. "Second Leash API")
@@ -69,6 +76,8 @@ Creates a new user account.
 **Troubleshooting:**
 - If you get `400 Bad Request`, the username might already exist. Try a different username.
 
+![Endpoint 1 - Register New User](screenshots/Endpoint%201%20-%20Register%20New%20User.png)
+
 ---
 
 ## Endpoint 2: Log In (Get Auth Token)
@@ -104,6 +113,8 @@ Logs in and gives you a token to use for all future requests.
 
 **IMPORTANT:** Copy the `token` value. You will need this for every request below.
 
+![Endpoint 2 - Log In](screenshots/Endpoint%202%20-%20Log%20In%20(get%20auth%20token).png)
+
 ---
 
 ## How to Add Your Token to Requests
@@ -137,6 +148,8 @@ Returns a list of all registered users.
 - Status: `200 OK`
 - Response: A JSON array of all users
 
+![Endpoint 3 - Get All Users](screenshots/Endpoint%203%20-%20Get%20All%20Users.png)
+
 ---
 
 ## Endpoint 4: Get a Single User
@@ -154,6 +167,8 @@ Replace `1` with the user ID you want to look up.
 **What to expect:**
 - Status: `200 OK`
 - Response: A JSON object with that user's details
+
+![Endpoint 4 - Get a Single User](screenshots/Endpoint%204%20-%20Get%20a%20Single%20User.png)
 
 ---
 
@@ -187,6 +202,8 @@ Creates a new puppy fundraiser. Only admin/staff users can do this.
 - If you get `401 Unauthorized`, check your Authorization header is correct.
 - Note the `id` in the response — you will need it for other endpoints.
 
+![Endpoint 5 - Create A Fundraiser](screenshots/Engpoint%205%20-%20Create%20A%20Fundraiser.png)
+
 ---
 
 ## Endpoint 6: Get All Fundraisers
@@ -204,6 +221,8 @@ Returns a list of all puppy fundraisers.
 **What to expect:**
 - Status: `200 OK`
 - Response: A JSON array of all fundraisers
+
+![Endpoint 6 - Get All Fundraisers](screenshots/Endpoint%206%20-%20Get%20All%20Fundraisers.png)
 
 ---
 
@@ -225,6 +244,8 @@ Replace `1` with the fundraiser ID you want to view.
 
 **Troubleshooting:**
 - If you get `404 Not Found`, that fundraiser ID doesn't exist. Check available IDs using the "Get All Fundraisers" endpoint.
+
+![Endpoint 7 - Get a Single Fundraiser](screenshots/Endpoint%207%20-%20Get%20a%20Single%20Fundraiser%20(Puppy%20Detail).png)
 
 ---
 
@@ -258,6 +279,8 @@ You only need to include the fields you want to change:
 **Troubleshooting:**
 - If you get `403 Forbidden`, your user is not an admin. See the "Making a User an Admin" section at the bottom of this guide.
 
+![Endpoint 8 - Update a Fundraiser](screenshots/Endpoint%208%20-%20Update%20a%20Fundraiser%20(Admin%20Only).png)
+
 ---
 
 ## Endpoint 9: Delete a Fundraiser (Admin Only)
@@ -283,6 +306,8 @@ Replace `1` with the fundraiser ID you want to delete.
 - If you get `404 Not Found`, that fundraiser ID doesn't exist.
 
 **Warning:** This cannot be undone! The fundraiser and all its pledges will be permanently deleted.
+
+![Endpoint 9 - Delete a Fundraiser](screenshots/Endpoint%209%20-%20Delete%20a%20Fundraiser%20(Admin%20Only).png)
 
 ---
 
@@ -317,6 +342,8 @@ Replace `1` with the fundraiser ID you want to favourite.
 - If you get `400 Bad Request` with "You have already favourited this puppy", you've already favourited this one. Try a different fundraiser ID.
 - If you get `404 Not Found`, that fundraiser doesn't exist.
 
+![Endpoint 10 - Favourite a Puppy](screenshots/Endpoint%2010%20-%20Favourite%20a%20Puppy.png)
+
 ---
 
 ## Endpoint 11: Get My Favourites
@@ -348,6 +375,8 @@ Returns all the puppies/fundraisers you have favourited.
 
 **Troubleshooting:**
 - If you get an empty array `[]`, you haven't favourited any puppies yet. Use Endpoint 10 first.
+
+![Endpoint 11 - Get My Favourites](screenshots/Endpoint%2011%20-%20Get%20My%20Favourites.png)
 
 ---
 
@@ -389,6 +418,8 @@ Replace `1` with the fundraiser ID you want to enquire about.
 }
 ```
 
+![Endpoint 12 - Submit an Enquiry](screenshots/Endpoint%2012%20-%20Submit%20an%20Enquiry%20About%20a%20Puppy.png)
+
 ---
 
 ## Endpoint 13: Create a Pledge (Donate to a Puppy)
@@ -418,6 +449,8 @@ Replace `1` in `"fundraiser": 1` with the fundraiser ID you want to donate to.
 - Status: `201 Created`
 - Response: The created pledge object
 
+![Endpoint 13 - Create a Pledge](screenshots/Endpoint%2013%20-%20Create%20a%20Pledge%20(Donate%20to%20a%20Puppy).png)
+
 ---
 
 ## Endpoint 14: Get My Pledges
@@ -439,6 +472,8 @@ Returns all pledges/donations that YOU (the logged-in user) have made.
 **Troubleshooting:**
 - If you get an empty array `[]`, you haven't made any pledges yet. Use Endpoint 13 first.
 
+![Endpoint 14 - Get All Pledges](screenshots/Endpoint%2014%20-%20Get%20All%20Pledges.png)
+
 ---
 
 ## Endpoint 15: Get All Pledges for a Specific Puppy
@@ -458,6 +493,8 @@ Replace `1` with the fundraiser ID you want to see pledges for.
 **What to expect:**
 - Status: `200 OK`
 - Response: A JSON array of all pledges for that fundraiser
+
+![Endpoint 15 - Get All Pledges for a Specific Puppy](screenshots/Endpoint%2015%20-%20Get%20All%20Pledges%20for%20a%20Specific%20Puppy.png)
 
 ---
 

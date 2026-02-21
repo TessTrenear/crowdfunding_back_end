@@ -30,7 +30,7 @@ class CustomeUserList (APIView):
     
 class CustomUserDetail(APIView) :
     def get(self, request, pk) : #pk
-        user = get_object_or_404(CustomUser, pk) #get record that matches the pk
+        user = get_object_or_404(CustomUser, pk=pk) #get record that matches the pk
         serializer = CustomUserSerializer(user) #serialize data for sending
         return Response(serializer.data) #send to user for sending
 
